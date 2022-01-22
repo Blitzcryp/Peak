@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Blitzcryp/Peak#readme",
   "dependencies": {
-    "discord.js": "^12.3.1"
+    "discord.js": "^12.3.1",
+    "dotenv": "^14.2.0"
   }
 }
