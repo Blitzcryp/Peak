@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const cursFunctions = require("./actions/onMessage/cursFunctions");
+
 
 require("dotenv").config();
 
@@ -34,40 +36,11 @@ client.on('message', gotMessage);
 
 function gotMessage(message){
     if(message.channel.id ===process.env.CHANNEL_ID && message.content === "!curs"){
-        // message.reply("Train Rainbow Gay");
-        let msg = "";
-        let index = 1;
-        Object.keys(courses).map((course) =>{
-            msg += index + ". " + course + "\n"; 
-            index += 1;
-
-            console.log(course);
-        })
-
-        message.channel.send(msg);
+        cursFunctions.cursHandler(message, courses);
     }
 
     if(message.channel.id === process.env.CHANNEL_ID && message.content.includes("!curs-")){
-        msg = message.content.slice(6)
-
-        console.log(courses["ABC"]);
-
-        if(courses[msg] === undefined){
-            message.reply("I could not find this course. Try running '!curs' for a list of courses.");
-        } 
-
-        if(courses[msg]){
-            let index = 1;
-            let coursesLinks = "";
-            
-            for (const id of courses[msg]){
-                coursesLinks += index + ". " + baseCourseUrl + "?id=" + id + "\n";
-                index++;
-            }
-
-            message.reply("Check out: \n" + coursesLinks);
-        }
-
+        cursFunctions.cursUrlHandler(message, courses, baseCourseUrl);
     }
 }
 
